@@ -1,12 +1,26 @@
-const Gameboard = () => {
+const gameboardFactory = () => {
   const gameboard = [
-    [0,0,0],[0,0,0],[0,0,0]
+    ['','',''],['','',''],['','','']
   ];
+
+  const getBoard = () => gameboard;
+  
   const showBoard = () => {
     console.log(gameboard[0]);
     console.log(gameboard[1]);
     console.log(gameboard[2]);
     console.log('=======================');
+
+    const containerDiv = document.getElementById('container');
+
+    gameboard.forEach(row => {
+      row.forEach(item => {
+        const elemDiv = document.createElement('div');
+        elemDiv.innerHTML = item;
+        elemDiv.classList.add('card')
+        containerDiv.appendChild(elemDiv)
+      })
+    });
   }
   const changeValue = (x,y,value) => {
     gameboard[x][y] = value;
@@ -15,14 +29,21 @@ const Gameboard = () => {
     showBoard,
     changeValue
   }
+};
+
+function playerFactory (name) {
+  const greeting = () => `Hi, ${name}!`;
+  return {
+    greeting
+  }
 }
 
-function Player (name) {
+const playerOne = playerFactory();
+const playerTwo = playerFactory();
 
-}
 
-const board = Gameboard();
-board.showBoard();
-board.changeValue(1,1,'X');
-board.showBoard();
+
+let game = gameboardFactory();
+game.showBoard();
+
 
